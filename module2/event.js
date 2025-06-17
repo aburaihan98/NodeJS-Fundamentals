@@ -13,6 +13,10 @@ schoolBell.on("ring", () => {
 schoolBell.on("broken", () => {
   console.log("Oh no! Class ki ar sesh hobena!");
 });
+schoolBell.on("broken", () => {
+  console.log("Oh no! Class monehoi ar hobe na!");
+});
 
 schoolBell.emit("ring", "Math");
+schoolBell.emit("broken");
 schoolBell.emit("broken");
