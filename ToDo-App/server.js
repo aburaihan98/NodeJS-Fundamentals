@@ -5,8 +5,13 @@ const path = require("path");
 const filePath = path.join(__dirname, "./db/todo.json");
 
 const server = http.createServer((req, res) => {
+  const { pathname, searchParams } = new URL(
+    req.url,
+    `http://${req.headers.host}`
+  );
+
   // Get all todos
-  if (req.url === "/todos" && req.method === "GET") {
+  if (pathname === "/todos" && req.method === "GET") {
     const data = fs.readFileSync(filePath, { encoding: "utf-8" });
     res.writeHead(200, {
       "content-type": "application/json",
@@ -16,8 +21,22 @@ const server = http.createServer((req, res) => {
     // res.setHeader("content-type", "text/plain");
     // res.setHeader("email", "r@gmail.com");
     res.end(data);
+    // single todo
+  } else if (pathname === "/todo" && req.method === "GET") {
+    const title = searchParams.get("title");
+
+    const data = fs.readFileSync(filePath, { encoding: "utf-8" });
+    const parseData = JSON.parse(data);
+
+    const singleTodo = parseData.find((todo) => todo.title === title);
+
+    res.writeHead(200, {
+      "content-type": "application/json",
+    });
+
+    res.end(JSON.stringify(singleTodo));
     // post a todo
-  } else if (req.url === "/todos/create-todo" && req.method === "POST") {
+  } else if (pathname === "/todos/create-todo" && req.method === "POST") {
     let data = "";
     req.on("data", (chunk) => {
       data = data + chunk;
