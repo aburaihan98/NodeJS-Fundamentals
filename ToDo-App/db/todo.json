@@ -1,7 +1,7 @@
 [
   {
     "title": "prisma",
-    "body": "Learning prisma",
+    "body": "Learning update prisma",
     "createdAt": "5/18/2025, 1:25:02 AM"
   },
   {
@@ -11,7 +11,7 @@
   },
   {
     "title": "express",
-    "body": "Learning advanced express",
+    "body": "Learning update express",
     "createdAt": "5/29/2025, 5:55:16 AM"
   },
   {
@@ -22,11 +22,6 @@
   {
     "title": "Express",
     "body": "Learning Express",
-    "date": "6/18/2025, 2:57:55 AM"
-  },
-  {
-    "title": "Express",
-    "body": "Learning Express",
-    "date": "6/18/2025, 2:59:27 AM"
+    "createdAt": "6/18/2025, 2:59:27 AM"
   }
 ]
