@@ -12,10 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const mongodb_1 = require("mongodb");
 const app_1 = __importDefault(require("./app"));
 const port = 5000;
 let server;
+const uri = "mongodb+srv://aburaihanrahmani:gDng3596DSYKVjpz@raihan.0p9bes0.mongodb.net/?retryWrites=true&w=majority&appName=Raihan";
+const client = new mongodb_1.MongoClient(uri, {
+    serverApi: {
+        version: mongodb_1.ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    },
+});
 const bootstrap = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield client.connect();
+    const db = client.db("todosDB");
+    const collection = db.collection("todos");
+    collection.insertOne({
+        title: "Prisma",
+        body: "Learning prisma",
+    });
     server = app_1.default.listen(port, () => {
         console.log(`✅ Server is running on port ${port}`);
     });

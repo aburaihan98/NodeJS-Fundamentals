@@ -18,5 +18,5 @@ exports.todosRouter.get("/", (req, res) => {
 });
 exports.todosRouter.post("/create-todo", (req, res) => {
     const { title, body } = req.body;
-    console.log("allah");
+    res.send({ title, body });
 });

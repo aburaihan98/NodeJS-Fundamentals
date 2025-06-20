@@ -15,5 +15,5 @@ todosRouter.get("/", (req: Request, res: Response) => {
 });
 todosRouter.post("/create-todo", (req: Request, res: Response) => {
   const { title, body } = req.body;
-  console.log("allah");
+  res.send({ title, body });
 });
