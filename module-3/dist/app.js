@@ -12,7 +12,9 @@ const filePath = path_1.default.join(__dirname, "../db/todo.json");
 app.get("/", (req, res) => {
     res.send("Welcome to todo app");
 });
-app.get("/todos", (req, res) => {
+app.get("/todos/:title/:body", (req, res) => {
+    console.log(req.params);
+    console.log(req.query);
     const data = fs_1.default.readFileSync(filePath, { encoding: "utf-8" });
     res.json(data);
 });
