@@ -8,7 +8,10 @@ const todos_routes_1 = require("./app/todos/todos.routes");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use("/todos", todos_routes_1.todosRouter);
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
+    console.log("Allah");
+    next();
+}, (req, res) => {
     res.send("Welcome to todo app");
 });
 // app.get("/todos", );
