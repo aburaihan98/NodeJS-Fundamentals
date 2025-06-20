@@ -15,6 +15,27 @@ app.get(
     res.send("Welcome to todo app");
   }
 );
-// app.get("/todos", );
+
+app.get("/error", (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log(Allah);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).send({
+    message: "Route not found",
+  });
+});
+
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+  if (error) {
+    res.status(500).send({
+      message: "Global error handler",
+    });
+  }
+});
 
 export default app;
