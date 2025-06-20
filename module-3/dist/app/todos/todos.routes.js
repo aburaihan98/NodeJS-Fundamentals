@@ -16,6 +16,7 @@ exports.todosRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const mongoDB_1 = require("../../config/mongoDB");
+const mongodb_1 = require("mongodb");
 const filePath = path_1.default.join(__dirname, "../../../db/todo.json");
 exports.todosRouter = express_1.default.Router();
 exports.todosRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -23,6 +24,16 @@ exports.todosRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
     const collection = db.collection("todos");
     const todos = yield collection.find().toArray();
     res.send(todos);
+}));
+exports.todosRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const db = mongoDB_1.client.db("todosDB");
+    const collection = db.collection("todos");
+    const id = req.params.id;
+    const query = {
+        _id: new mongodb_1.ObjectId(id),
+    };
+    const todo = yield collection.findOne(query);
+    res.send(todo);
 }));
 exports.todosRouter.post("/create-todo", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, priority } = req.body;
@@ -36,4 +47,25 @@ exports.todosRouter.post("/create-todo", (req, res) => __awaiter(void 0, void 0,
     });
     const todos = yield collection.find().toArray();
     res.send(todos);
+}));
+exports.todosRouter.put("/update-todo/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const db = mongoDB_1.client.db("todosDB");
+    const collection = db.collection("todos");
+    const id = req.params.id;
+    const updateData = req.body;
+    const query = {
+        _id: new mongodb_1.ObjectId(id),
+    };
+    const updateDoc = { $set: updateData };
+    const result = yield collection.updateOne(query, updateDoc, { upsert: true });
+    res.json(result);
+}));
+exports.todosRouter.delete("/delete-todo/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const db = mongoDB_1.client.db("todosDB");
+    const collection = db.collection("todos");
+    const id = req.params.id;
+    const result = yield collection.deleteOne({
+        _id: new mongodb_1.ObjectId(id),
+    });
+    res.json(result);
 }));
