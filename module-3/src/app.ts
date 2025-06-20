@@ -12,9 +12,5 @@ app.get("/todos", (req: Request, res: Response) => {
   const data = fs.readFileSync(filePath, { encoding: "utf-8" });
   res.json(data);
 });
-app.get("/todos/create-todo", (req: Request, res: Response) => {
-  const data = req.body;
-  res.json(data);
-});
 
 export default app;
